@@ -87,17 +87,17 @@ Naïf est d'environ 910. On remarquera que l'efficacité est sensiblement la mê
 500          0.677     0.469
 250          0.688     0.505
 125          0.701     0.564
-6            à refaire...
+6            0.728     0.747
 5            0.743     0.763
 4            0.619     0.73
 
 Table: Précision et rappel moyens du Bayes Naïf selon le nombre d'attributs
 sélectionné par gain d'information sur le dataset OHSUMED.
 
-Le nombre optimal d'attributs sélectionné par gain d'information sur le dataset
-OHSUMED est 5. 
+Notre optimal empirique d'attributs sélectionné par gain d'information sur le dataset
+OHSUMED est 5 (ou 6). 
 
-On remarque qu'une sélection très restreinte d'attribut avec le gain d'information augmente la performance du classieur de Bayes naïf lorsque entrainé sur oshumed.
+On remarque qu'une sélection très restreinte d'attribut avec le gain d'information augmente la performance du classfieur de Bayes naïf lorsque entrainé sur oshumed. On peut supposer que cela est dû au fait qu'oshumed est une collection d'article spécialisé
 
 ## Chi-carrés
 
