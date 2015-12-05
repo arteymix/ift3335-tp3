@@ -223,7 +223,7 @@ La sélection de 20 attributs est optimale pour la méthode des chi-carrés pour
 le dataset OHSUMED traité par racinisation.
 
 Encore une fois, sur les données racinisées, la méthode des chi-carrés offre de
-meilleures métriques que le gain d'information. Les algorithmes pour le prochain
+meilleures métriques que le gain d'information.
 
 # Arbre de décision, SVM et Perceptron
 
@@ -235,6 +235,18 @@ c'était réaliste.
 
 \# attributs Précision Rappel
 ------------ --------- ------
+1000
+500
+100          0.852     0.852
+50           0.826     0.827
+
+Table: Précision et rappel de l'arbre de décision J48 sur le dataset Reuters
+traité par racinisation en fonction du nombre d'attributs sélectionnés par la
+méthode des Chi-Carrés.
+
+
+\# attributs Précision Rappel
+------------ --------- ------
 1000         0.777     0.781
 100          0.794     0.795
 50           0.8       0.801
@@ -243,17 +255,6 @@ c'était réaliste.
 
 Table: Précision et rappel de l'arbre de décision J48 sur le  dataset OHSUMED
 traité par racinisation en fonction du nombre d'attributs sélectionnés avec la
-méthode des Chi-Carrés.
-
-\# attributs Précision Rappel
------------- --------- ------
-1000
-500
-100          0.852     0.852
-50           0.826     0.827
-
-Table: Précision et rappel de l'arbre de décision J48 sur le dataset Reuters
-traité par racinisation en fonction du nombre d'attributs sélectionnés par la
 méthode des Chi-Carrés.
 
 ## SVM
@@ -349,4 +350,7 @@ earn    0.979     0.952
 gold    0.875     0.618
 heat    1         0.5
 housing 1         0.572
+
+
+#Conclusion
 
