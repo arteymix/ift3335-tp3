@@ -1,5 +1,6 @@
 ---
 title: IFT3335 --- Travail pratique 2
+lang: french
 author:
  - Vincent Antaki
  - Guillaume Poirier-Morency
@@ -100,11 +101,11 @@ Table: Précision et rappel moyens du Bayes naïf selon le nombre d'attributs
 sélectionné par gain d'information sur le dataset OHSUMED.
 
 Notre optimal empirique d'attributs sélectionné par gain d'information sur le
-dataset OHSUMED est 5 (ou 6).
+dataset OHSUMED est 5.
 
 On remarque qu'une sélection très restreinte d'attribut avec le gain
 d'information augmente la performance du classfieur de Bayes naïf lorsque
-entrainé sur oshumed. On peut supposer que cela est dû au fait qu'oshumed est
+entrainé sur OHSUMED. On peut supposer que cela est dû au fait qu'OHSUMED est
 une collection d'articles spécialisés.
 
 ## Méthode des chi carrés
@@ -245,14 +246,12 @@ c'était réaliste.
 
 \# attributs Précision Rappel
 ------------ --------- ------
-1000
-500
 100          0.852     0.852
 50           0.826     0.827
 
 Table: Précision et rappel de l'arbre de décision J48 sur le dataset Reuters
 traité par racinisation en fonction du nombre d'attributs sélectionnés par la
-méthode des Chi-Carrés.
+méthode des chi carrés.
 
 
 \# attributs Précision Rappel
@@ -323,7 +322,7 @@ Mitosos     0.986     0.989
 Necrosis    0.969     0.971
 Pediatrics  0.984     0.986
 Pregnancy   0.946     0.949
-Rats
+Rats        0.957     0.958
 
 Table: Précision et rappel moyens de la classification par SMO pour le dataset
 OHSUMED.
@@ -412,23 +411,30 @@ obtenu avec le classifieur Bayésien naïf.
 
 Puisque les arbres de décisions J48 ont été les meilleurs à classifier les
 documents, nous avons essayé quelques variantes afin de voir si elles
-permetteraient d'obtenir de meilleurs métriques.
+permetteraient d'obtenir de meilleures métriques.
 
-Classifieur Précision Rappel
------------ --------- ------
-J48         0.881     0.882
-NBTree
-REPTree     0.856     0.858
+Classifieur              Précision Rappel
+-----------              --------- ------
+J48                      0.881     0.882
+REPTree                  0.856     0.858
+RandomForest (10 arbres) 0.893     0.889
+RandomForest (15 arbres) 0.902     0.899
+RandomForest (20 arbres) 0.909     0.906
+RandomTree               0.797     0.8
+DecisionStump            0.584     0.692
+RBFNetwork               0.87      0.864
 
 Table: Précision et rappel moyens de différents classifiers de la catégorie
 arbre de décision.
 
 Étrangement, des valeurs nulles sont observées pour la classe _heat_ dans le
-classifieur REPTree. Les résultats sont légèrement supérieurs au Bayes naïf.
-
-Le NBTree est particulier, car il utilise des classifieurs Bayésien aux
-feuilles de son arbre de décision.
+classifieur REPTree. Les résultats sont toutefois légèrement supérieurs au
+Bayes naïf.
 
 L'arbre J48 a encore une fois démontré sont efficacité pour classer les données
-de Reuters et frôle les 90% de précésion et de rappel.
+de Reuters et frôle les 90% de précésion et de rappel. Le mieux observé jusqu'à
+présent était de 82.6% avec une sélection d'attributs optimisée.
+
+Le classifieur RandomForest est particulièrement rapide à entrainer et fournit
+les meilleurs résultats de précision et de rappel.
 
