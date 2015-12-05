@@ -26,7 +26,7 @@ maximale d'utilisation de mémoire de 8GB.
 
 ##Naif Bayes
 
-Le résultats suivants sont 
+Le résultats suivants sont
 
 Classe  Précision Rappel
 ------  --------- ------
@@ -39,7 +39,7 @@ gold    0.639     0.676
 heat    1         0.75
 Moyenne 0.811     0.803
 
-Table: Valeurs de précision et de rappel du Bayes Naïf pour chaque classe du 
+Table: Valeurs de précision et de rappel du Bayes Naïf pour chaque classe du
 dataset Reuters.
 
 Classe      Précision Rappel
@@ -60,7 +60,7 @@ Table: Valeurs de précision et de rappel par classe du classifieur Bayes Naïf 
 La sélection d'attributs a été appliqué sur l'ensemble d'entraînement, la
 validation croisée étant trop coûteuse à calculer.
 
-L'algorithme de scorage _Ranker_ a été utilisé pour effectuer la sélection des 
+L'algorithme de scorage _Ranker_ a été utilisé pour effectuer la sélection des
 attributs.
 
 Nous avons effectués nos test avec l'idée d'estimer le nombre d'attributs à sélectionner pour maximiser l'efficacité du classifieur en tentant de trouver un maximum local ou un environ.
@@ -95,7 +95,7 @@ Table: Précision et rappel moyens du Bayes Naïf selon le nombre d'attributs
 sélectionné par gain d'information sur le dataset OHSUMED.
 
 Notre optimal empirique d'attributs sélectionné par gain d'information sur le dataset
-OHSUMED est 5 (ou 6). 
+OHSUMED est 5 (ou 6).
 
 On remarque qu'une sélection très restreinte d'attribut avec le gain d'information augmente la performance du classfieur de Bayes naïf lorsque entrainé sur oshumed. On peut supposer que cela est dû au fait qu'oshumed est une collection d'articles spécialisés.
 
@@ -128,14 +128,14 @@ sélectionné par la méthode des chi-carrés sur le dataset OHSUMED.
 
 On constate qu'une sélection d'environ 30 attributs offre une classification
 optimale pour le Bayes Naïf à l'aide de la méthode des chi-carrés pour le
-dataset OHSUMED. De plus, la précision et le rappel est légèrement meilleur 
+dataset OHSUMED. De plus, la précision et le rappel est légèrement meilleur
 qu'avec la méthode par gain d'information.
 
 Il semble y avoir un petit ensemble de termes qui sont fortement discriminants
-pour le _dataset_ OHSUMED, contrairement à Reuters où une bonne classification 
+pour le _dataset_ OHSUMED, contrairement à Reuters où une bonne classification
 doit considérer une quantité considérable de termes.
 
-La méthode par les chi-carrés offre de meilleures métriques pour les deux 
+La méthode par les chi-carrés offre de meilleures métriques pour les deux
 ensembles de données.
 
 # Racinisation
@@ -157,8 +157,8 @@ Moyenne 0.809     0.804
 Table: Valeurs de précision et de rappel pour chaque classe et en moyenne du
 dataset Reuters traité avec la racinisation.
 
-On constate un gain considérable pour la classe `coffee` dont la précision passe 
-de 0.282 à 0.415. De manière générale, les résultats sont égaux ou légèrement 
+On constate un gain considérable pour la classe `coffee` dont la précision passe
+de 0.282 à 0.415. De manière générale, les résultats sont égaux ou légèrement
 inférieurs.
 
 Un plus grand pourcentage des documents on été correctement classifés avec le
@@ -188,7 +188,7 @@ observé sur les métriques est négligable.
 ------------ --------- ------
 925          0.806     0.799
 
-Table: Précision et rappel moyens du Bayes Naïf pour le dataset Reuters traité 
+Table: Précision et rappel moyens du Bayes Naïf pour le dataset Reuters traité
 par racinisation et sélectionné par la méthode des chi-carrés.
 
 \# attributs Précision Rappel
@@ -203,7 +203,7 @@ par racinisation et sélectionné par la méthode des chi-carrés.
 
 Table: Précision et rappel pour le gain d'information pour le dataset OHSUMED stemmé
 
-La sélection de 10 attributs est optimale pour le gain d'information. 
+La sélection de 10 attributs est optimale pour le gain d'information.
 
 \# attributs Précision Rappel
 ------------ --------- ------
@@ -222,38 +222,57 @@ la méthode des chi-squared dataset OHSUMED stemmé
 La sélection de 20 attributs est optimale pour la méthode des chi-carrés pour
 le dataset OHSUMED traité par racinisation.
 
-Encore une fois, sur les données racinisées, la méthode des chi-carrés offre de 
-meilleures métriques que le gain d'information. Les algorithmes pour le prochain 
-numéro seront roulés principalement avec les meilleurs hyper-paramètres trouvés ici.
+Encore une fois, sur les données racinisées, la méthode des chi-carrés offre de
+meilleures métriques que le gain d'information. Les algorithmes pour le prochain
 
 # Arbre de décision, SVM et Perceptron
 
 Tous les algorithmes demandés on été exécuté à l'aide de racinisation, des
-quantités optimales d'attributs ainsi que tout l'ensemble de données lorsque 
+quantités optimales d'attributs ainsi que tout l'ensemble de données lorsque
 c'était réaliste.
 
 ## Arbre de décision
 
-Table: Précision et rappel pour chaque classe et en moyenne du dataset OHSUMED
-dont 1000 attributs ont été sélectionnés avec la méthode des Chi-Carrés
+\# attributs Précision Rappel
+------------ --------- ------
+1000         0.777     0.781
+100          0.794     0.795
+50           0.8       0.801
+25           0.796     0.795
+20           0.796     0.796
+
+Table: Précision et rappel de l'arbre de décision J48 sur le  dataset OHSUMED
+traité par racinisation en fonction du nombre d'attributs sélectionnés avec la
+méthode des Chi-Carrés.
+
+\# attributs Précision Rappel
+------------ --------- ------
+1000
+500
+100          0.852     0.852
+50           0.826     0.827
+
+Table: Précision et rappel de l'arbre de décision J48 sur le dataset Reuters
+traité par racinisation en fonction du nombre d'attributs sélectionnés par la
+méthode des Chi-Carrés.
 
 ## SVM
 
 Le SVM (avec SMO) est particulièrement facile et rapide à entrainer et offre des
 résultats très surprenant performant. Nous avons donc appliqué la technique sur les
-_datasets_ complets. 
+_datasets_ complets.
 
 Classe  Précision Rappel
 ------  --------- ------
 acq     0.925     0.896
-coffee  à refaire
+coffee  0.997     0.997
 earn    0.982     0.954
 gold    0.87      0.588
 heat    1         0.5
 housing 1         0.571
-Moyenne à faire
 
-Table: Reuters segmenté et classifié par un SVM (SMO)
+Table: Précision et rappel de la classification par un SVM (SMO) pour le
+dataset Reuters.
 
 Classe  Précision Rappel
 ------  --------- ------
@@ -269,6 +288,12 @@ Table: Reuters stemmé et classifié par un SVM (SMO)
 Effectuer la racinisation a un impact négligable sur la performance du SMO et
 le coût est considérablement plus élevé que de rouler l'algorithme sur le
 _dataset_ complet.
+
+Classe Précision Rappel
+------ --------- ------
+
+
+Table: OHSUMED
 
 ## Perceptron
 
@@ -287,17 +312,30 @@ Table: Précision et rappel moyens pour chaque classe du dataset OHSUMED
 classifié à l'aide d'un perceptron multi-couche dont 1000 attributs ont été
 sélectionnés avec la méthode des Chi-Carrés.
 
-Tous les perceptrons se sont concentré à maximiser les classes les plus
-populées (Aucune, earn et acq) et offrent aucune précision ni rappel pour les
-autres.
+Tous les perceptrons se sont concentrés à maximiser les classes les plus
+populées (Aucune, earn et acq dans le cas de Reuters) et n'offrent aucune
+précision ni rappel pour les autres.
+
+Couches Précision Rappel
+------- --------- ------
+3       0.797     0.795
+4       0.8       0.801
+5       0.802     0.802
+
+Table: Précision et rappel moyens pour ...
+
+On remarque le perceptron plafonne après 5 couches.
 
 # Exploration libre
+
+Pour l'exploration libre, nous avons tenté d'améliorer la performance de la
+classification du dataset Reuters.
 
  - TF/IDF
  - sélection d'attributs optimale
  - stemming
  - tester les modèles différents (MultiClassSVM)
- - 
+ -
 
 Reuters TF/IDF avec racinisation
 
