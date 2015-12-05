@@ -5,7 +5,14 @@ author:
  - Guillaume Poirier-Morency
 ---
 
-# Reuters et OHSUMED
+\abstract
+
+Malheureusement, il nous est impossible de condenser tous les résultats dans
+5 page avec cette largeur de texte.
+
+Bonne lecture!
+
+# Bayes naïf avec Reuters et OHSUMED
 
 L'application du filtre `StringToWordVector` est assez lente, nous avons donc
 sauvegardé les résultats intermédiaires avant de procéder à l'application des
@@ -17,10 +24,6 @@ OHSUMED en contient 50400.
 Les données de Reuters ont été traitée avec une quantité raisonnable de mémoire
 et de temps, tandis que pour pouvoir traiter les données d'OHSUMED, il a fallu
 définir une limite maximale d'utilisation de mémoire de 8GB.
-
-##  Bayes naïf
-
-Le résultats suivants sont
 
 Classe  Précision Rappel
 ------  --------- ------
@@ -35,6 +38,8 @@ Moyenne 0.811     0.803
 
 Table: Précision et rappel du Bayes naïf pour chaque classe du dataset Reuters.
 
+Le modèle a pris 150.17 secondes à construire avec les données de Reuters.
+
 Classe      Précision Rappel
 ------      --------- ------
 Aucune      0.751     0.224
@@ -48,6 +53,8 @@ Moyenne     0.623     0.401
 
 Table: Précision et de rappel par classe du classifieur Bayes naïf entrainé sur
 l'entièreté des données du dataset OHSUMED.
+
+Le modèle a pris 282.32 secondes à construire avec les données d'OHSUMED.
 
 # Sélection d'attributs
 
@@ -314,8 +321,8 @@ Classe      Précision Rappel
 Hyperplasia 0.981     0.983
 Mitosos     0.986     0.989
 Necrosis    0.969     0.971
-Pediatrics
-Pregnancy
+Pediatrics  0.984     0.986
+Pregnancy   0.946     0.949
 Rats
 
 Table: Précision et rappel moyens de la classification par SMO pour le dataset
@@ -354,12 +361,16 @@ Couches Précision Rappel
 3       0.797     0.795
 4       0.8       0.801
 5       0.802     0.802
+10      0.801     0.801
+20      0.8       0.8
+30      0.801     0.795
 
 Table: Précision et rappel moyens du perceptron pour différents nombre de
 couches du dataset OHSUMED traité avec racinisation et dont 20 attributs ont
 été sélectionnés par la méthode des chi carrés.
 
-On remarque le perceptron plafonne après 5 couches.
+On remarque le perceptron plafonne après 5 couches, même que les résultats se
+dégradent légèrement.
 
 De manière générale, il semble que le perceptron reste coincé dans un maximum
 local, car il ne considère qu'une petite partie de l'information fournie.
@@ -369,17 +380,55 @@ local, car il ne considère qu'une petite partie de l'information fournie.
 Pour l'exploration libre, nous avons tenté d'améliorer la performance de la
 classification du dataset Reuters.
 
-Le Bayes naïf donne les résultats suivants:
+Tout d'abord, nous avons utilisé une _stoplist_ afin d'exclure les mots communs
+en anglais comme les déterminants ou les chiffres.
 
-Classe  Précision Rappel
-------  --------- ------
-acq     0.93      0.904
-coffee  1         0.6
-earn    0.979     0.952
-gold    0.875     0.618
-heat    1         0.5
-housing 1         0.572
+La transformation TF/IDF ajoute deux facteurs au poids d'un mot:
 
+ - la fréquence du terme considéré dans le document;
+ - la fréquence du terme considéré dans le corpus.
 
-#Conclusion
+Un mot fréquent dans un document aura un poids plus considérable, tandis qu'un
+mot fréquent dans l'ensemble du corpus sera pénalisé.
+
+Classe Précision Rappel
+------ --------- ------
+Aucune  0.888     0.826
+earn    0.858     0.866
+housing 0.75     0.857
+acq     0.763     0.862
+coffee  0.51     0.714
+gold    0.684     0.765
+heat    1         0.75
+Moyenne 0.849     0.844
+
+Table: Précision et rappel du Bayes naïf sur l'ensemble de données de Reuters
+traité avec une _stoplist_, TF/IDF, racinisation et dont 1000 attributs ont été
+sélectionnés par la méthode des chi carrés.
+
+L'application des transformation a permis d'aller chercher environ 5% de plus
+en précision et 4.5% de plus en rappel par rapport aux meilleurs résultats
+obtenu avec le classifieur Bayésien naïf.
+
+Puisque les arbres de décisions J48 ont été les meilleurs à classifier les
+documents, nous avons essayé quelques variantes afin de voir si elles
+permetteraient d'obtenir de meilleurs métriques.
+
+Classifieur Précision Rappel
+----------- --------- ------
+J48         0.881     0.882
+NBTree
+REPTree     0.856     0.858
+
+Table: Précision et rappel moyens de différents classifiers de la catégorie
+arbre de décision.
+
+Étrangement, des valeurs nulles sont observées pour la classe _heat_ dans le
+classifieur REPTree. Les résultats sont légèrement supérieurs au Bayes naïf.
+
+Le NBTree est particulier, car il utilise des classifieurs Bayésien aux
+feuilles de son arbre de décision.
+
+L'arbre J48 a encore une fois démontré sont efficacité pour classer les données
+de Reuters et frôle les 90% de précésion et de rappel.
 
