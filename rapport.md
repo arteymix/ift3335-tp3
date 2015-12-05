@@ -63,7 +63,7 @@ validation croisée étant trop coûteuse à calculer.
 L'algorithme de scorage _Ranker_ a été utilisé pour effectuer la sélection des 
 attributs.
 
-Nous avons effectués nos test avec l'idée d'estimer le nombre d'attributs à sélectionner pour maximiser l'efficacité du classifieur en tentant de trouver un maximum local.
+Nous avons effectués nos test avec l'idée d'estimer le nombre d'attributs à sélectionner pour maximiser l'efficacité du classifieur en tentant de trouver un maximum local ou un environ.
 
 ## Gain d'information
 
@@ -78,7 +78,7 @@ Nous avons effectués nos test avec l'idée d'estimer le nombre d'attributs à s
 Table: Précision et rappel moyens du Bayes Naïf selon le nombre d'attributs
 sélectionné par gain d'information pour le dataset Reuters.
 
-Le meilleur nombre d'attributs qui maximise la précision et le rappel du Bayes
+Le nombre d'attributs qui maximise la précision et le rappel du Bayes
 Naïf est d'environ 910. On remarquera que l'efficacité est sensiblement la même que lorsque l'on traite l'entièreté des données. Par contre, le temps de calcul est beaucoup plus raisonnable.
 
 \# attributs Précision Rappel
@@ -97,10 +97,9 @@ sélectionné par gain d'information sur le dataset OHSUMED.
 Notre optimal empirique d'attributs sélectionné par gain d'information sur le dataset
 OHSUMED est 5 (ou 6). 
 
-On remarque qu'une sélection très restreinte d'attribut avec le gain d'information augmente la performance du classfieur de Bayes naïf lorsque entrainé sur oshumed. On peut supposer que cela est dû au fait qu'oshumed est une collection d'article spécialisé
+On remarque qu'une sélection très restreinte d'attribut avec le gain d'information augmente la performance du classfieur de Bayes naïf lorsque entrainé sur oshumed. On peut supposer que cela est dû au fait qu'oshumed est une collection d'articles spécialisés.
 
 ## Chi-carrés
-
 
 \# attributs Précision Rappel
 ------------ --------- ------
@@ -112,13 +111,12 @@ On remarque qu'une sélection très restreinte d'attribut avec le gain d'informa
 Table: Précision et rappel moyen du Bayes Naïf selon le nombre d'attributs
 sélectionnés par la méthode des chi-carrés pour le dataset Reuters.
 
-Par la méthode des Chi-carrés, on obtient un nombre optimal d'attributs 
-d'environ 875.
+Par la méthode des Chi-carrés sur un classifieur de Bayes naïf, nous avons obtenu une meilleure performance pour le dataset reuter avec une sélection de 875 attributs. On remarquera que la performance est légèrement supérieur au deux dernières méthodes présentées.
 
 \# attributs Précision Rappel
 ------------ --------- ------
 1000         0.673     0.46
-500          0.68      0.536      
+500          0.68      0.536
 250          0.698     0.652
 125          0.719     0.703
 62           0.745     0.74
@@ -142,7 +140,7 @@ ensembles de données.
 
 # Racinisation
 
-Une fois racinisé, les datasets Reuters et OHSUMED contiennent respectivement
+Une fois racinisé (*stemmed*), les datasets Reuters et OHSUMED contiennent respectivement
 27135 et 42505 attributs.
 
 Classe  Précision Rappel
@@ -198,35 +196,35 @@ par racinisation et sélectionné par la méthode des chi-carrés.
 1000         0.669     0.454
 30           0.731     0.729
 20           0.749     0.757
+11           0.755     0.77
 10           0.764     0.771
 8            0.763     0.77
-9
-11
+5            0.747     0.748
 
-Table: Précision et rappel pour le gain d'information pour le dataset OHSUMED
+Table: Précision et rappel pour le gain d'information pour le dataset OHSUMED stemmé
 
-La sélection de 10 attributs est optimale pour le gain d'information.
+La sélection de 10 attributs est optimale pour le gain d'information. 
 
 \# attributs Précision Rappel
 ------------ --------- ------
 1000         0.669     0.45
 30           0.784     0.786
-20           0.802     0.802
-15           0.79      0.787
-19           0.801     0.801
 25           0.795     0.797
 22           0.796     0.798
 21           0.796     0.797
+20           0.802     0.802
+19           0.801     0.801
+15           0.79      0.787
 
 Table: Précision et rappel pour différents nombres d'attributs sélectionnés par
-la méthode des chi-squared dataset OHSUMED
+la méthode des chi-squared dataset OHSUMED stemmé
 
 La sélection de 20 attributs est optimale pour la méthode des chi-carrés pour
 le dataset OHSUMED traité par racinisation.
 
 Encore une fois, sur les données racinisées, la méthode des chi-carrés offre de 
 meilleures métriques que le gain d'information. Les algorithmes pour le prochain 
-numéro seront roulés avec ces hyper-paramètres optimaux.
+numéro seront roulés principalement avec les meilleurs hyper-paramètres trouvés ici.
 
 # Arbre de décision, SVM et Perceptron
 
@@ -242,8 +240,8 @@ dont 1000 attributs ont été sélectionnés avec la méthode des Chi-Carrés
 ## SVM
 
 Le SVM (avec SMO) est particulièrement facile et rapide à entrainer et offre des
-résultats très surprenant. Nous avons donc appliqué la technique sur les
-_datasets_ complets.
+résultats très surprenant performant. Nous avons donc appliqué la technique sur les
+_datasets_ complets. 
 
 Classe  Précision Rappel
 ------  --------- ------
@@ -274,7 +272,7 @@ _dataset_ complet.
 
 ## Perceptron
 
-Le perceptron est beaucoup trop coûteux à entrainer, alors nous n'avons pas pu
+Le perceptron est très coûteux à entrainer, alors nous n'avons pas pu
 l'appliquer sur les _datasets_ complets.
 
 Voici les résultats pour 5, 10 et 30 couches de neurones cachées:
